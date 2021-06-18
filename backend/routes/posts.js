@@ -29,14 +29,27 @@ const storage = multer.diskStorage({
 
 router.route("/")
   .get((req, res, next) => {
-    Post.find()
+    const pageSize = +req.query.page_size;
+    const currentPage = +req.query.page;
+    const postQuery = Post.find();
+    let fetchedPosts;
+    if ( pageSize && currentPage){
+     postQuery
+       .skip(pageSize * (currentPage - 1) )
+       .limit(pageSize);
+    }
+    postQuery
       .then(documents => {
-        console.log(documents);
+        fetchedPosts = documents;
+        return Post.countDocuments({});
+      })
+      .then(count => {
         res.status(200).json({
           message: "Posts fetched successfully!",
-          posts: documents
+          posts: fetchedPosts,
+          maxPosts: count
         });
-      });
+    });
   })
   .post(multer({storage: storage}).single("image"), (req, res, next) => {
     const url = req.protocol + '://' + req.get("host");
@@ -77,7 +90,7 @@ router.route("/:id")
       title: req.body.title,
       content: req.body.content,
       imagePath: imagePath
-    }).then((result) => {
+    }).then(result => {
       res.status(200).json({message: "Update successful!"});
     });
   })

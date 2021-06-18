@@ -3,7 +3,7 @@ const debug = require("debug")("node-angular");
 const http = require("http");
 
 const normalizePort = val => {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -38,7 +38,7 @@ const onError = error => {
 };
 
 const onListening = () => {
-  const addr = server.address();
+  server.address();
   const bind = typeof port === "string" ? "pipe " + port : "port " + port;
   debug("Listening on " + bind);
 };

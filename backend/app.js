@@ -8,8 +8,6 @@ const postsRoutes = require('./routes/posts');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const Post = require('./models/post');
-
 const app = express();
 
 // use env variable to store database password.
