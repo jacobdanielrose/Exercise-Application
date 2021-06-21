@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -32,5 +33,6 @@ app.use((req,res,next) => {
 });
 
 app.use("/posts", postsRoutes)
+app.use("/user", userRoutes);
 
 module.exports = app;
