@@ -85,7 +85,12 @@ router.route("/:id")
       const url = req.protocol + '://' + req.get("host");
       imagePath = url + "/images/" + req.file.filename;
     }
-
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      imagePath: imagePath
+    })
+    console.log(post);
     Post.updateOne({_id: req.params.id}, {
       title: req.body.title,
       content: req.body.content,
