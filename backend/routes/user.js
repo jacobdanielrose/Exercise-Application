@@ -41,7 +41,7 @@ router.route("/login")
           });
         }
         fetchedUser = user;
-        return bcrypt.compare(req.body.password, user.password)
+        return bcrypt.compare(req.body.password, user.password);
       })
       .then(result => {
         if (!result) {
@@ -50,16 +50,17 @@ router.route("/login")
           });
         }
         const token = jwt.sign(
-          {email: fetchedUser.email, userId: fetchedUser._id},
-          'secret_this_should_be_longer',
+          { email: fetchedUser.email, userId: fetchedUser._id },
+          "secret_this_should_be_longer",
           { expiresIn: '1h' }
         );
         res.status(200).json({
-          token: token
+          token: token,
+          expiresIn: 3600
         });
       })
       .catch(err => {
-        res.status(401).json({
+        return res.status(401).json({
           message: "Auth Failed"
         });
       });
