@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import {AuthData} from './auth-data.model';
+import { environment } from "../../environments/environment"
+
+const BACKEND_URL =  environment.apiUrl + "/user/";
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -33,15 +36,18 @@ export class AuthService {
 
   createUser(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post("http://localhost:3000/user/signup" , authData)
-      .subscribe(response => {
-        console.log(response);
+    return this.http
+      .post(BACKEND_URL + "signup" , authData)
+      .subscribe(() => {
+        this.router.navigate(["/"]).then();
+      }, () => {
+        this.authStatusListener.next(false);
       });
   }
 
   login(email: string, password: string){
     const authData: AuthData = {email: email, password: password};
-    this.http.post<{ token: string, expiresIn: number , userId: string}>("http://localhost:3000/user/login", authData)
+    this.http.post<{ token: string, expiresIn: number , userId: string}>(BACKEND_URL + "login", authData)
       .subscribe(response => {
         this.token = response.token;
         if (this.token) {
@@ -53,8 +59,10 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           AuthService.saveAuthData(this.token as string, expirationDate, this.userId);
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then();
         }
+      } , () => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -87,7 +95,7 @@ export class AuthService {
     this.userId = null;
     clearTimeout(this.tokenTimer);
     AuthService.clearAuthData();
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then() ;
   }
 
   private static saveAuthData(token: string, expirationDate: Date, userId: string) {
