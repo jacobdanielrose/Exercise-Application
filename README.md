@@ -1,4 +1,7 @@
-# MeanCourse
+# Exercise Application
+
+A basic excersize application with various exercize options. The completed workouts are then stored in a cloud database using Firestore via AngularFire.
+#######################################
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
 
