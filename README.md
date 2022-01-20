@@ -2,8 +2,6 @@
 
 A basic post application where you can write and save a Message which is then displayed to the user. This was created to familiarize myself with both Angular and using the REST API format with MongoDB as a database and connected to the frontend via Mongoose.
 
-#######################################
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
 
 ## Development server
