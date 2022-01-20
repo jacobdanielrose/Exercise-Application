@@ -1,6 +1,6 @@
 # PostBox
 
-A basic post application where you can write and save a Message which is then displayed to the user. This was created to familiarize myself with both Angular and using the REST API format with MongoDB as a backend.
+A basic post application where you can write and save a Message which is then displayed to the user. This was created to familiarize myself with both Angular and using the REST API format with MongoDB as a database and connected to the frontend via Mongoose.
 
 #######################################
 
