@@ -2,11 +2,6 @@
   "name": "mean-course",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "start:server": "nodemon server.js"
   },
   "private": true,
@@ -34,7 +29,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.4",
+    "@angular-devkit/build-angular": "^12.2.16",
     "@angular/cli": "~12.0.4",
     "@angular/compiler-cli": "~12.0.4",
     "@types/jasmine": "~3.6.0",
@@ -47,6 +42,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "nodemon": "^2.0.7",
-    "typescript": "~4.2.3"
+    "typescript": "~4.2.3",
+    "webpack": "^5.68.0"
   }
 }

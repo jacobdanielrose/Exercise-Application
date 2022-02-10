@@ -13,7 +13,7 @@ const app = express();
 
 // use env variable to store database password.
 mongoose.connect("mongodb+srv://sam:" + process.env.MONGO_ATLAS_PASSWORD + "@cluster0.qwraz.mongodb.net/mean-app?retryWrites=true&w=majority",
-  {useNewUrlParser: true, useUnifiedTopology: true})
+  { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to the database!");
   })
@@ -22,17 +22,21 @@ mongoose.connect("mongodb+srv://sam:" + process.env.MONGO_ATLAS_PASSWORD + "@clu
   });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images")));
+app.use("/", express.static(path.join(__dirname, "angular")));
 
-app.use((req,res,next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-  next();
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+//   next();
+// });
+
+app.use("/api/posts", postsRoutes)
+app.use("/api/user", userRoutes);
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular", "index.html"));
 });
-
-app.use("/posts", postsRoutes)
-app.use("/user", userRoutes);
 
 module.exports = app;

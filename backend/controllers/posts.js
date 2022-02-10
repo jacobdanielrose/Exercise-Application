@@ -7,9 +7,9 @@ exports.getPosts = (req, res) => {
   const currentPage = +req.query.page;
   const postQuery = Post.find();
   let fetchedPosts;
-  if ( pageSize && currentPage){
+  if (pageSize && currentPage) {
     postQuery
-      .skip(pageSize * (currentPage - 1) )
+      .skip(pageSize * (currentPage - 1))
       .limit(pageSize);
   }
   postQuery
@@ -56,11 +56,11 @@ exports.createPost = (req, res) => {
 }
 
 exports.getSinglePost = (req, res) => {
-  Post.findById(req.params.id).then(post =>{
+  Post.findById(req.params.id).then(post => {
     if (post) {
       res.status(200).json(post);
     } else {
-      res.status(404).json({ message: "Post not found!"});
+      res.status(404).json({ message: "Post not found!" });
     }
   })
     .catch(() => {
@@ -83,9 +83,9 @@ exports.updatePost = (req, res) => {
     creator: req.userData.userId
   }).then(result => {
     if (result.n > 0) {
-      res.status(200).json({message: "Update successful!"});
+      res.status(200).json({ message: "Update successful!" });
     } else {
-      res.status(401).json({message: "Not Authorized!"});
+      res.status(401).json({ message: "Not Authorized!" });
     }
   })
     .catch(() => {
@@ -99,9 +99,9 @@ exports.deletePost = (req, res) => {
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then((result) => {
       if (result.n > 0) {
-        res.status(200).json({message: "Post deleted!"});
+        res.status(200).json({ message: "Post deleted!" });
       } else {
-        res.status(401).json({message: "Not Authorized!"});
+        res.status(401).json({ message: "Not Authorized!" });
       }
     })
 }
