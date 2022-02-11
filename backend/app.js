@@ -12,12 +12,12 @@ dotenv.config();
 const app = express();
 
 // use env variable to store database password.
-mongoose.connect("mongodb+srv://sam:" + process.env.MONGO_ATLAS_PASSWORD + "@cluster0.qwraz.mongodb.net/mean-app?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://sam:" + encodeURIComponent(process.env.MONGO_ATLAS_PASSWORD) + "@cluster0.qwraz.mongodb.net/postBox?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to the database!");
   })
-  .catch(() => {
+  .catch((e) => {
     console.log("Connction to database failed!")
   });
 

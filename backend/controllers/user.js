@@ -27,7 +27,7 @@ exports.createUser = (req, res) => {
 
 exports.userLogin = (req, res) => {
   let fetchedUser;
-  User.findOne( { email: req.body.email })
+  User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
         return res.status(401).json({
@@ -38,6 +38,7 @@ exports.userLogin = (req, res) => {
       return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
+      console.log(result)
       if (!result) {
         return res.status(401).json({
           message: "Auth Failed"
@@ -54,7 +55,8 @@ exports.userLogin = (req, res) => {
         userId: fetchedUser._id
       });
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e.message)
       return res.status(401).json({
         message: "Invalid authentication credentials!"
       });
