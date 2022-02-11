@@ -38,7 +38,6 @@ exports.userLogin = (req, res) => {
       return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
-      console.log(result)
       if (!result) {
         return res.status(401).json({
           message: "Auth Failed"
@@ -56,7 +55,6 @@ exports.userLogin = (req, res) => {
       });
     })
     .catch((e) => {
-      console.log(e.message)
       return res.status(401).json({
         message: "Invalid authentication credentials!"
       });
